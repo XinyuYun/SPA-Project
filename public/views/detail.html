@@ -1,0 +1,66 @@
+<div class="container">
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <div class="media">
+        <div class="pull-left">
+          <img class="media-object img-rounded" ng-src="{{show.poster}}">
+          <div class="text-center" ng-if="currentUser">
+            <div ng-show="!isSubscribed()">
+              <button ng-click="subscribe()" class="btn btn-block btn-success">
+                <span class="ion-plus"></span> Subscribe
+              </button>
+            </div>
+            <div ng-show="isSubscribed()">
+              <button ng-click="unsubscribe()" class="btn btn-block btn-danger">
+                <span class="ion-minus"></span> Unsubscribe
+              </button>
+            </div>
+          </div>
+          <div class="text-center" ng-show="!currentUser">
+            <a class="btn btn-block btn-primary" href="#/login">Login to Subscribe</a>
+          </div>
+        </div>
+        <div class="media-body">
+          <h2 class="media-heading">
+            {{show.name}}
+            <span class="pull-right text-danger"><span class="ion-heart"></span> {{show.ratings.critics_rating}}</span>
+ 						
+          </h2>
+          <span class="pull-center text-danger"><p>Director:{{show.directors}}</p></span>  
+          <div><p>Owner:{{show.creator}}</p></div>
+          <img class="img-rounded" ng-src="{{show.posters.thumbnail}}" style="width:104px;height:142px />          
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+
+  <div class="panel panel-default">
+    <div class="panel-heading" ng-repeat="liker in show.likers">
+            	<span class="ion-heart"></span> {{liker}}
+    </div>
+
+    
+  </div>
+  <div class="panel-heading">
+      <h4>Comments</h4>
+  </div>
+  <div class="panel-body">
+      <div class="comment" ng-repeat="comment in show.comments| filter:{isPublic:true}">
+        <h6>{{comment.comment}}
+        	--by {{comment.publisher}},
+        </h6>
+      </div>
+	     <form class="form" method="post" ng-submit="addComment()" name="addForm">
+        <div class="form-group" ng-class="{ 'has-error' : addForm.comment.$invalid && addForm.comment.$dirty }" ng-hide="!currentUser">
+          <input class="form-control" type="textarea" name="comment" ng-model="comment" placeholder="Enter your comment..." required autofocus>
+					<input type="checkbox" name="ispublic" ng-model="ispublic"> public to others?<br>
+        
+        <button class="btn btn-primary" type="submit" ng-disabled="addForm.$invalid">Add</button>
+        </div>
+      </form>
+    <div class="text-left" ng-if="!currentUser">
+            <a class="btn btn-block btn-primary" href="#/login">Login to Comment</a>
+    </div>
+</div>

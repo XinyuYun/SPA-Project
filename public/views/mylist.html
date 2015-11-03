@@ -1,0 +1,24 @@
+<div class="container">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            {{Title}}
+            <div class="pull-right">
+                <input class="search" type="text" ng-model="query.name" placeholder="Search...">
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="row show-list">
+                <div class="fade-repeat col-xs-4 col-md-3" ng-repeat="movie in myMovies">
+                    <a href="/shows/{{movie._id}}">
+                        <center><img class="img-rounded" ng-src="{{movie.posters.thumbnail}}" width="80%"/></center>
+                    </a>
+                    <div class="text-center">
+                        <a href="/shows/{{movie._id}}">{{movie.name}}</a>
+                        <p class="text-muted"><img ng-src="tomato.png"/> {{movie.ratings.critics_rating}}</p>
+                        <p class="text-muted" ng-repeat="liker in movie.likers">{{liker}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
